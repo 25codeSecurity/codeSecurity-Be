@@ -1,10 +1,11 @@
 package code_security.coin_futures.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -17,6 +18,25 @@ public class FuturesContract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String type;
+
+    private String position;
+
+    private String asset;
+
+    private Double amount;
+
+    private Double strikePrice;
+
+    private LocalDate expiration;
+
+    private String user;
+
+    private LocalDateTime timestamp;
+
+    @Lob
+    private byte[] digitalEnvelope;
 
 
 }
