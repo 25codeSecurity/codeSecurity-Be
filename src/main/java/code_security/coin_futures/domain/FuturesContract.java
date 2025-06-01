@@ -32,7 +32,9 @@ public class FuturesContract {
     private LocalDate expiration;
 
     private LocalDateTime timestamp;
-
+    private boolean matched;
+    private boolean settled;
+    private Double settlementAmount;
     @Lob
     private byte[] digitalEnvelope;
 

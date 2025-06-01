@@ -1,0 +1,22 @@
+<!--Step 4. 정산 요청 화면-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>정산 요청</title>
+</head>
+
+<body>
+<h1>💰 계약 정산</h1>
+
+<form th:action="@{/contracts/settle}" method="post">
+    <label>계약 ID 1: <input type="number" name="contractId1" required></label><br />
+    <label>계약 ID 2: <input type="number" name="contractId2" required></label><br />
+    <label>정산 기준 가격 (예: 55000): <input type="number" step="0.01" name="currentPrice" required></label><br />
+    <button type="submit">정산 실행</button>
+</form>
+
+<p th:if="${success}" style="color:green;">✅ 정산 완료되었습니다!</p>
+<p th:if="${error}" style="color:red;">❌ 정산 실패: <span th:text="${error}"></span></p>
+</body>
+</html>
