@@ -3,7 +3,7 @@ spring:
     name: coin-futures
 
   datasource:
-    url: jdbc:h2:file:E:/25codeSecurityBE/codeSecurity-Be/db/testdb
+    url: jdbc:h2:tcp://localhost:9092/file:./db/testdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
