@@ -3,9 +3,7 @@ package code_security.coin_futures.crypto;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
+import java.security.*;
 
 public class CryptoUtil {
 
@@ -19,6 +17,12 @@ public class CryptoUtil {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
         return cipher.doFinal(data);
+    }
+
+    public static KeyPair generateRSAKeyPair() throws Exception {
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+        keyPairGen.initialize(1024);
+        return keyPairGen.generateKeyPair();
     }
 
     public static byte[] encryptRSA(byte[] data, PublicKey key) throws Exception {
