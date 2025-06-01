@@ -37,7 +37,6 @@ public class FuturesContract {
     private boolean settled;   // 정산이 완료되었는지
     private Double settlementAmount; // 손익 금액
 
-
     @Lob
     private byte[] digitalEnvelope;
 

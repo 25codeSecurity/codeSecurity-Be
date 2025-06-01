@@ -1,0 +1,24 @@
+<!-- Step 5. 계약 상세 조회 화면-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>계약 상세 정보</title>
+</head>
+
+<body>
+<h1>📋 계약 상세 정보</h1>
+
+<p><strong>계약 ID:</strong> <span th:text="${contract.id}"></span></p>
+<p><strong>유저:</strong> <span th:text="${contract.user}"></span></p>
+<p><strong>자산:</strong> <span th:text="${contract.asset}"></span></p>
+<p><strong>포지션:</strong> <span th:text="${contract.position}"></span></p>
+<p><strong>수량:</strong> <span th:text="${contract.amount}"></span></p>
+<p><strong>계약 가격:</strong> <span th:text="${contract.strikePrice}"></span></p>
+<p><strong>만기일:</strong> <span th:text="${contract.expiration}"></span></p>
+<p><strong>계약 체결:</strong> <span th:text="${contract.matched}"></span></p>
+<p><strong>정산 완료:</strong> <span th:text="${contract.settled}"></span></p>
+<p><strong>정산 금액:</strong> <span th:text="${contract.settlementAmount} ?: '미정산'"></span></p>
+
+</body>
+</html>
