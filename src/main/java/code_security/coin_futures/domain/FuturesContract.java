@@ -33,6 +33,11 @@ public class FuturesContract {
 
     private LocalDateTime timestamp;
 
+    private boolean matched;   // 계약이 체결되었는지
+    private boolean settled;   // 정산이 완료되었는지
+    private Double settlementAmount; // 손익 금액
+
+
     @Lob
     private byte[] digitalEnvelope;
 

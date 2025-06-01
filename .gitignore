@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# H2 DB 파일 무시 (팀원끼리 충돌 방지)
+db/*.mv.db
+db/*.trace.db
