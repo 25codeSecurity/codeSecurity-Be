@@ -68,4 +68,27 @@ public class FuturesContractCommandServiceImpl implements FuturesContractCommand
 
         futuresContractRepository.save(contract);
     }
+
+    // 계약 매칭 (A, B 두 계약서 조건 비교 → 체결) 김소망이 추가
+    public void matchContracts(Long contractId1, Long contractId2) {
+        FuturesContract c1 = futuresContractRepository.findById(contractId1)
+                .orElseThrow(() -> new RuntimeException("계약 1번 없음"));
+        FuturesContract c2 = futuresContractRepository.findById(contractId2)
+                .orElseThrow(() -> new RuntimeException("계약 2번 없음"));
+
+        boolean matched =
+                c1.getAsset().equals(c2.getAsset()) &&
+                        c1.getAmount().equals(c2.getAmount()) &&
+                        c1.getStrikePrice().equals(c2.getStrikePrice()) &&
+                        c1.getExpiration().equals(c2.getExpiration()) &&
+                        !c1.getPosition().equals(c2.getPosition()); // Long vs Short
+
+        if (!matched) {
+            throw new IllegalArgumentException("계약 조건 불일치");
+        }
+
+        // 실제 체결 처리: 상태 변경, 정산 준비 등 필요 시 추가
+        System.out.println("✅ 계약 체결 성공: ID " + c1.getId() + " ↔ " + c2.getId());
+    }
+
 }

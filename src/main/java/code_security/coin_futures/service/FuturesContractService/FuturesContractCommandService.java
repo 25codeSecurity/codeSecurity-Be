@@ -7,4 +7,7 @@ public interface FuturesContractCommandService {
 
     //계약서 제출
     void submitContract(FuturesContractRequestDTO.SubmitContractDTO request, Long userId)throws Exception;
+
+    //계약서 체결
+    void matchContracts(Long contractId1, Long contractId2);
 }

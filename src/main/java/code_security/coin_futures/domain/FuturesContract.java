@@ -31,8 +31,6 @@ public class FuturesContract {
 
     private LocalDate expiration;
 
-    private Long member;
-
     private LocalDateTime timestamp;
 
     @Lob
