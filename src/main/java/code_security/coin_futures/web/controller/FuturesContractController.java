@@ -22,4 +22,16 @@ public class FuturesContractController {
             throw new RuntimeException(e);
         }
     }
+
+    //계약 체결 API 추가
+    @PostMapping("/match")
+    public ResponseEntity<String> matchContracts(@RequestBody MatchRequest request) {
+        try {
+            futuresContractCommandService.matchContracts(request.contractId1(), request.contractId2());
+            return ResponseEntity.ok("✅ 계약 체결 성공");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("❌ 계약 체결 실패: " + e.getMessage());
+        }
+    }
+    public record MatchRequest(Long contractId1, Long contractId2) {}
 }
