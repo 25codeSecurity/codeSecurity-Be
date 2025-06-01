@@ -31,7 +31,7 @@ public class FuturesContract {
 
     private LocalDate expiration;
 
-    private String user;
+    private Long member;
 
     private LocalDateTime timestamp;
 
