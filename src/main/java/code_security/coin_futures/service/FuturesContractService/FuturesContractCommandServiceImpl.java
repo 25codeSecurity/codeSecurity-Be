@@ -18,6 +18,8 @@ import java.security.PublicKey;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FuturesContractCommandServiceImpl implements FuturesContractCommandService {
@@ -70,6 +72,7 @@ public class FuturesContractCommandServiceImpl implements FuturesContractCommand
     }
 
     // 계약 매칭 (A, B 두 계약서 조건 비교 → 체결) 김소망이 추가
+    @Override
     public void matchContracts(Long contractId1, Long contractId2) {
         FuturesContract c1 = futuresContractRepository.findById(contractId1)
                 .orElseThrow(() -> new RuntimeException("계약 1번 없음"));
@@ -87,8 +90,13 @@ public class FuturesContractCommandServiceImpl implements FuturesContractCommand
             throw new IllegalArgumentException("계약 조건 불일치");
         }
 
-        // 실제 체결 처리: 상태 변경, 정산 준비 등 필요 시 추가
-        System.out.println("✅ 계약 체결 성공: ID " + c1.getId() + " ↔ " + c2.getId());
+        c1.setMatched(true);
+        c2.setMatched(true);
+        futuresContractRepository.saveAll(List.of(c1, c2));
+
+        System.out.println("✅ 계약 체결 성공 및 상태 저장 완료: ID " + c1.getId() + " ↔ " + c2.getId());
     }
+
+
 
 }
