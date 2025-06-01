@@ -7,12 +7,11 @@
 package code_security.coin_futures.service;
 
 import code_security.coin_futures.domain.FuturesContract;
-import code_security.coin_futures.repository.FuturesContractRepository.FuturesContractRepository;
+import code_security.coin_futures.repository.FuturesContractRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

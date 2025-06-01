@@ -8,8 +8,8 @@ package code_security.coin_futures;
 
 import code_security.coin_futures.domain.FuturesContract;
 import code_security.coin_futures.domain.Member;
-import code_security.coin_futures.repository.FuturesContractRepository.FuturesContractRepository;
-import code_security.coin_futures.repository.FuturesContractRepository.MemberRepository;
+import code_security.coin_futures.repository.FuturesContractRepository;
+import code_security.coin_futures.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,7 @@
 package code_security.coin_futures.web.controller;
 
-import code_security.coin_futures.domain.FuturesContract;
 import code_security.coin_futures.web.dto.FuturesContractDTO.FuturesContractResponseDTO;
-import code_security.coin_futures.repository.FuturesContractRepository.FuturesContractRepository;
+import code_security.coin_futures.repository.FuturesContractRepository;
 import code_security.coin_futures.service.FuturesContractService.FuturesContractCommandService;
 import code_security.coin_futures.service.SettlementService;
 import code_security.coin_futures.web.dto.FuturesContractDTO.FuturesContractRequestDTO;

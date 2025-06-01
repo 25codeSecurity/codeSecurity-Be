@@ -1,4 +1,4 @@
-package code_security.coin_futures.repository.FuturesContractRepository;
+package code_security.coin_futures.repository;
 
 import org.springframework.stereotype.Repository;
 
