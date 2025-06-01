@@ -17,7 +17,4 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<FuturesContract> futuresContracts = new ArrayList<>();
 }
