@@ -38,5 +38,7 @@ public class FuturesContract {
     @Lob
     private byte[] digitalEnvelope;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id") // FK
+    private Member member;
 }
