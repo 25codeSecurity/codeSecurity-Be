@@ -2,30 +2,25 @@ package code_security.coin_futures.service.FuturesContractService;
 
 import code_security.coin_futures.crypto.CryptoUtil;
 import code_security.coin_futures.domain.FuturesContract;
-import code_security.coin_futures.repository.FuturesContractRepository.FuturesContractRepository;
+import code_security.coin_futures.repository.FuturesContractRepository;
 import code_security.coin_futures.service.KeyStoreService.KeyStoreService;
 import code_security.coin_futures.web.dto.FuturesContractDTO.FuturesContractRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.io.ByteArrayOutputStream;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class FuturesContractCommandServiceImpl implements FuturesContractCommandService {
 
-    private FuturesContractRepository futuresContractRepository;
-    private KeyStoreService keyStoreService;
+    private final FuturesContractRepository futuresContractRepository;
+    private final KeyStoreService keyStoreService;
 
     @Override
     public void submitContract(FuturesContractRequestDTO.SubmitContractDTO request, Long userId) throws Exception{
@@ -96,7 +91,4 @@ public class FuturesContractCommandServiceImpl implements FuturesContractCommand
 
         System.out.println("✅ 계약 체결 성공 및 상태 저장 완료: ID " + c1.getId() + " ↔ " + c2.getId());
     }
-
-
-
 }

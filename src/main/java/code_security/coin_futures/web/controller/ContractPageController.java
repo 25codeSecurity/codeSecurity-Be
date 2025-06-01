@@ -8,7 +8,7 @@
 package code_security.coin_futures.web.controller;
 
 import code_security.coin_futures.domain.FuturesContract;
-import code_security.coin_futures.repository.FuturesContractRepository.FuturesContractRepository;
+import code_security.coin_futures.repository.FuturesContractRepository;
 import code_security.coin_futures.service.FuturesContractService.FuturesContractCommandService;
 import code_security.coin_futures.service.SettlementService;
 import code_security.coin_futures.web.dto.FuturesContractDTO.FuturesContractResponseDTO;
@@ -26,7 +26,29 @@ public class ContractPageController {
     private final FuturesContractCommandService commandService;
     private final FuturesContractRepository contractRepository;
 
-    @GetMapping("/settle")
+    // Step 3: 계약 체결 폼
+    @GetMapping("/match-form")
+    public String showMatchPage() {
+        return "match";
+    }
+
+    @PostMapping("/match")
+    public String matchContracts(
+            @RequestParam Long contractId1,
+            @RequestParam Long contractId2,
+            Model model
+    ) {
+        try {
+            commandService.matchContracts(contractId1, contractId2);
+            model.addAttribute("success", true);
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "match";
+    }
+
+    // Step 4: 정산 폼
+    @GetMapping("/settle-form")
     public String showSettlePage() {
         return "settle";
     }
@@ -47,7 +69,8 @@ public class ContractPageController {
         return "settle";
     }
 
-    @GetMapping("/{id}")
+    // Step 5: 계약 상세 보기 (숫자만 허용)
+    @GetMapping("/detail/{id:[0-9]+}")
     public String viewContract(@PathVariable Long id, Model model) {
         FuturesContract contract = contractRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("계약 없음"));
