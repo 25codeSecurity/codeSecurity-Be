@@ -28,6 +28,7 @@ public class ContractPageController {
     private final FuturesContractRepository contractRepository;
     private final FuturesContractCommandService futuresContractCommandService;
 
+    // Step 1-2 통합: 계약 제출 & 전자봉투 생성
     @GetMapping("/contract-form")
     public String contractFormPage() {
         return "contractForm"; // templates/contractForm.html
@@ -41,7 +42,7 @@ public class ContractPageController {
         } catch (Exception e) {
             model.addAttribute("message", "Error: " + e.getMessage());
         }
-        return "contractform";
+        return "redirect:/contracts/success";
     }
     // Step 3: 계약 체결 폼
     @GetMapping("/match-form")
@@ -109,4 +110,15 @@ public class ContractPageController {
         model.addAttribute("contract", dto);
         return "detail";
     }
+
+    @GetMapping("/home")
+    public String homePage() {
+        return "home";
+    }
+
+    @GetMapping("/success")
+    public String successPage() {
+        return "success";
+    }
+
 }
