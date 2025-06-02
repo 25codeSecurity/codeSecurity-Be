@@ -6,9 +6,12 @@ import code_security.coin_futures.service.FuturesContractService.FuturesContract
 import code_security.coin_futures.service.SettlementService;
 import code_security.coin_futures.web.dto.FuturesContractDTO.FuturesContractRequestDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/contracts")
 @RequiredArgsConstructor
@@ -17,7 +20,7 @@ public class FuturesContractController {
     private final SettlementService settlementService;
     private final FuturesContractRepository futuresContractRepository;
 
-    @PostMapping("/submit")
+    /*@PostMapping("/submit")
     public ResponseEntity<String> submitFuturesContract(@RequestBody FuturesContractRequestDTO.SubmitContractDTO request){
         try {
             futuresContractCommandService.submitContract(request, request.getMemberId());
@@ -25,7 +28,24 @@ public class FuturesContractController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }*/
+
+    @PostMapping("/submit")
+    public ResponseEntity<String> submitFuturesContract(@RequestBody FuturesContractRequestDTO.SubmitContractDTO request) {
+        try {
+            futuresContractCommandService.submitContract(request, request.getMemberId());
+            return ResponseEntity.ok("Contract submitted successfully.");
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 없음: " + e.getMessage());
+        } catch (ContractException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("계약 오류: " + e.getMessage());
+        } catch (Exception e) {
+            // 예기치 않은 시스템 오류는 로깅 후 500 응답
+            log.error("계약 제출 중 예외 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류 발생");
+        }
     }
+
 
     //계약 체결 API
     @PostMapping("/match")
