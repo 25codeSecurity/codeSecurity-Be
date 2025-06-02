@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "code_security.coin_futures")
+//@ComponentScan(basePackages = "code_security.coin_futures")
 public class CoinFuturesApplication {
 
 	public static void main(String[] args) {

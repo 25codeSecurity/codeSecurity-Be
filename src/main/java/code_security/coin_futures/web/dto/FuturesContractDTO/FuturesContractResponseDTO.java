@@ -20,8 +20,8 @@ public class FuturesContractResponseDTO {
         private Long id;
         private String position;
         private String asset;
-        private Double amount;
-        private Double strikePrice;
+        private Integer amount;
+        private Integer strikePrice;
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate expiration;
         private String user;
