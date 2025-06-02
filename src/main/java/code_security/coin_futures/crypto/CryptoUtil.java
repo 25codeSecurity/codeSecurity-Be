@@ -3,6 +3,7 @@ package code_security.coin_futures.crypto;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import java.security.*;
 
 public class CryptoUtil {
@@ -14,14 +15,19 @@ public class CryptoUtil {
     }
 
     public static byte[] encryptAES(byte[] data, SecretKey key) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, key);
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        byte[] iv = new byte[16];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(iv);
+        IvParameterSpec ivSpec = new IvParameterSpec(iv);
+        cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
         return cipher.doFinal(data);
     }
 
+
     public static KeyPair generateRSAKeyPair() throws Exception {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
-        keyPairGen.initialize(1024);
+        keyPairGen.initialize(2048);
         return keyPairGen.generateKeyPair();
     }
 

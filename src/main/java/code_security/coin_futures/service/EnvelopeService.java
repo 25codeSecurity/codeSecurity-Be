@@ -8,6 +8,7 @@
 package code_security.coin_futures.service;
 import code_security.coin_futures.util.CertificateUtil;
 import code_security.coin_futures.util.EnvelopeUtil;
+import code_security.coin_futures.web.dto.FuturesContractDTO.EnvelopePayloadDTO;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
 
-@Service
+/*@Service
 public class EnvelopeService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -52,4 +53,35 @@ public class EnvelopeService {
     }
 
     public record DecodedContract(JsonNode contract, PublicKey userPublicKey) {}
+}*/
+@Service
+public class EnvelopeService {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public DecodedContract unwrapEnvelope(byte[] encryptedPayload, byte[] encryptedKey, byte[] iv, PrivateKey serverPrivateKey) throws Exception {
+        // AES 키 복호화
+        SecretKey aesKey = EnvelopeUtil.decryptAESKey(encryptedKey, serverPrivateKey);
+
+        // Payload 복호화
+        byte[] decryptedBytes = EnvelopeUtil.decryptAES(encryptedPayload, aesKey, iv);
+        String decryptedJson = new String(decryptedBytes, StandardCharsets.UTF_8);
+
+        // DTO로 역직렬화 (기존 JsonNode 제거)
+        EnvelopePayloadDTO dto = objectMapper.readValue(decryptedJson, EnvelopePayloadDTO.class);
+
+        // 서명 및 인증서 처리
+        String contractStr = objectMapper.writeValueAsString(dto.getContract());
+        byte[] signatureBytes = Base64.getDecoder().decode(dto.getSignature());
+        PublicKey userPublicKey = CertificateUtil.extractPublicKey(dto.getCert());
+
+        // 서명 검증
+        boolean valid = EnvelopeUtil.verifySignature(contractStr.getBytes(StandardCharsets.UTF_8), signatureBytes, userPublicKey);
+        if (!valid) throw new SecurityException("전자서명 검증 실패");
+
+        return new DecodedContract(objectMapper.valueToTree(dto.getContract()), userPublicKey); // contract를 다시 JsonNode로 변환
+    }
+
+    public record DecodedContract(JsonNode contract, PublicKey userPublicKey) {}
 }
+
