@@ -17,6 +17,8 @@ public class FuturesContractController {
     private final SettlementService settlementService;
     private final FuturesContractRepository futuresContractRepository;
 
+
+    //계약 요청
     @PostMapping("/submit")
     public ResponseEntity<String> submitFuturesContract(@RequestBody FuturesContractRequestDTO.SubmitContractDTO request){
         try {

@@ -11,6 +11,7 @@ import code_security.coin_futures.domain.FuturesContract;
 import code_security.coin_futures.repository.FuturesContractRepository;
 import code_security.coin_futures.service.FuturesContractService.FuturesContractCommandService;
 import code_security.coin_futures.service.SettlementService;
+import code_security.coin_futures.web.dto.FuturesContractDTO.FuturesContractRequestDTO;
 import code_security.coin_futures.web.dto.FuturesContractDTO.FuturesContractResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,24 @@ public class ContractPageController {
     private final SettlementService settlementService;
     private final FuturesContractCommandService commandService;
     private final FuturesContractRepository contractRepository;
+    private final FuturesContractCommandService futuresContractCommandService;
 
+    // Step 1-2 통합: 계약 제출 & 전자봉투 생성
+    @GetMapping("/contract-form")
+    public String contractFormPage() {
+        return "contractForm"; // templates/contractForm.html
+    }
+
+    @PostMapping("/submit")
+    public String handleSubmit(@ModelAttribute FuturesContractRequestDTO.SubmitContractDTO request, Model model) {
+        try {
+            futuresContractCommandService.submitContract(request, request.getMemberId());
+            model.addAttribute("message", "Contract submitted successfully.");
+        } catch (Exception e) {
+            model.addAttribute("message", "Error: " + e.getMessage());
+        }
+        return "redirect:/contracts/success";
+    }
     // Step 3: 계약 체결 폼
     @GetMapping("/match-form")
     public String showMatchPage() {
@@ -92,4 +110,15 @@ public class ContractPageController {
         model.addAttribute("contract", dto);
         return "detail";
     }
+
+    @GetMapping("/home")
+    public String homePage() {
+        return "home";
+    }
+
+    @GetMapping("/success")
+    public String successPage() {
+        return "success";
+    }
+
 }

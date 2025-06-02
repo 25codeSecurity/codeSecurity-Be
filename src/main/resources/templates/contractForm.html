@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>📜코인 선물 계약 요청</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>선물 계약 요청</h1>
+
+<form th:action="@{/contracts/submit}" method="post">
+    <label>회원 ID:
+        <input type="number" name="memberId" required>
+    </label><br><br>
+
+    <label>매치 코드 (matchCode):
+        <input type="text" name="matchCode" placeholder="예: 222" required>
+    </label><br><br>
+
+    <label>유형 (type):
+        <input type="text" name="type" value="futures_contract" required>
+    </label><br><br>
+
+    <label>포지션 (position):
+        <select name="position">
+            <option value="long">LONG</option>
+            <option value="short">SHORT</option>
+        </select>
+    </label><br><br>
+
+    <label>거래 자산 (asset):
+        <input type="text" name="asset" placeholder="예: BTC" required>
+    </label><br><br>
+
+    <label>수량 (amount):
+        <input type="number" step="1" name="amount" required>
+    </label><br><br>
+
+    <label>거래 가격 (strikePrice):
+        <input type="number" step="1" name="strikePrice" required>
+    </label><br><br>
+
+    <label>만기일 (expiration):
+        <input type="date" name="expiration" required>
+    </label><br><br>
+
+    <button type="submit">계약 제출</button>
+</form>
+
+</body>
+</html>

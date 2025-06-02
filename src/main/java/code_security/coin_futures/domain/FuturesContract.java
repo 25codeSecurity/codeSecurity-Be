@@ -21,13 +21,15 @@ public class FuturesContract {
 
     private String type;
 
+    private String matchCode;
+
     private String position;
 
-    private String asset;
+    private String asset; //거래 코인 정보
 
-    private Double amount;
+    private Integer amount;
 
-    private Double strikePrice;
+    private Integer strikePrice;
 
     private LocalDate expiration;
 
@@ -38,9 +40,14 @@ public class FuturesContract {
     private Double settlementAmount; // 손익 금액
 
     @Lob
-    private byte[] digitalEnvelope;
+    private byte[] digitalEnvelope; // 전자봉투
 
+    //계약 당사자 n:1
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id") // FK
     private Member member;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "matched_contract_id")
+    private FuturesContract matchedContract;
 }

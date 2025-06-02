@@ -26,6 +26,7 @@ public class KeyStoreService {
     }
 
     public PublicKey getServerPublicKey() {
+
         return serverKeyPair.getPublic();
     }
 
@@ -39,6 +40,11 @@ public class KeyStoreService {
         }).getPrivate();
     }
     public PublicKey getUserPublicKey(Long userId) {
-        return userKeyPairs.get(userId).getPublic();
+
+        KeyPair keyPair = userKeyPairs.get(userId);
+        if (keyPair == null) {
+            throw new IllegalStateException("사용자 키 쌍이 존재하지 않습니다.");
+        }
+        return keyPair.getPublic();
     }
 }
