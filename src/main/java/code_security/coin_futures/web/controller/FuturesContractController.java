@@ -21,9 +21,13 @@ public class FuturesContractController {
     private final FuturesContractRepository futuresContractRepository;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     //계약 요청
     @PostMapping("/submit")
+=======
+    /*@PostMapping("/submit")
+>>>>>>> Stashed changes
 =======
     /*@PostMapping("/submit")
 >>>>>>> Stashed changes
