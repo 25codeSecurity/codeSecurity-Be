@@ -1,86 +1,163 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>코인 선물 계약 요청</title>
+    <title>📜코인 선물 계약 요청</title>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .card {
-            border: none;
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f6fa;
+            color: #2d3436;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+            color: #6c5ce7;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px 40px;
             border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
         }
-        .btn-primary {
+
+        label {
+            display: block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #a29bfe;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        button {
             background-color: #6c5ce7;
+            color: white;
+            padding: 12px 20px;
             border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
         }
-        .btn-primary:hover {
-            background-color: #5649d2;
-        }
-        .form-label {
-            font-weight: 600;
+
+        button:hover {
+            background-color: #a29bfe;
         }
     </style>
 </head>
-<body class="bg-light">
+<body>
+<h1>선물 계약 요청</h1>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card p-4">
-                <div class="text-center mb-4">
-                    <i class="fas fa-file-signature fa-3x text-primary mb-2"></i>
-                    <h2 class="fw-bold">선물 계약 요청</h2>
-                    <p class="text-muted">계약 정보를 입력하여 제출하세요.</p>
-                </div>
+<form th:action="@{/contracts/submit}" method="post">
+    <label>회원 ID:
+        <input type="number" name="memberId" required>
+    </label>
 
-                <form th:action="@{/contracts/submit}" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">회원 ID</label>
-                        <input type="number" class="form-control" name="memberId" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">매치 코드</label>
-                        <input type="text" class="form-control" name="matchCode" placeholder="예: 222" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">유형</label>
-                        <input type="text" class="form-control" name="type" value="futures_contract" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">포지션</label>
-                        <select class="form-select" name="position">
-                            <option value="long">LONG</option>
-                            <option value="short">SHORT</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">거래 자산</label>
-                        <input type="text" class="form-control" name="asset" placeholder="예: BTC" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">수량</label>
-                        <input type="number" class="form-control" name="amount" step="1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">거래 가격</label>
-                        <input type="number" class="form-control" name="strikePrice" step="1" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">만기일</label>
-                        <input type="date" class="form-control" name="expiration" required>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">계약 제출</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+    <label>매치 코드 (matchCode):
+        <input type="text" name="matchCode" placeholder="예: 222" required>
+    </label>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <label>유형 (type):
+        <input type="text" name="type" value="futures_contract" required>
+    </label>
+
+    <label>포지션 (position):
+        <select name="position">
+            <option value="long">LONG</option>
+            <option value="short">SHORT</option>
+        </select>
+    </label>
+
+    <label>거래 자산 (asset):
+        <input type="text" name="asset" placeholder="예: BTC" required>
+    </label>
+
+    <label>수량 (amount):
+        <input type="number" step="1" name="amount" required>
+    </label>
+
+    <label>거래 가격 (strikePrice):
+        <input type="number" step="1" name="strikePrice" required>
+    </label>
+
+    <label>만기일 (expiration):
+        <input type="date" name="expiration" required>
+    </label>
+
+    <button type="submit">계약 제출</button>
+</form>
+
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>📜코인 선물 계약 요청</title>-->
+<!--    <meta charset="UTF-8">-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>선물 계약 요청</h1>-->
+
+<!--<form th:action="@{/contracts/submit}" method="post">-->
+<!--    <label>회원 ID:-->
+<!--        <input type="number" name="memberId" required>-->
+<!--    </label><br><br>-->
+
+<!--    <label>매치 코드 (matchCode):-->
+<!--        <input type="text" name="matchCode" placeholder="예: 222" required>-->
+<!--    </label><br><br>-->
+
+<!--    <label>유형 (type):-->
+<!--        <input type="text" name="type" value="futures_contract" required>-->
+<!--    </label><br><br>-->
+
+<!--    <label>포지션 (position):-->
+<!--        <select name="position">-->
+<!--            <option value="long">LONG</option>-->
+<!--            <option value="short">SHORT</option>-->
+<!--        </select>-->
+<!--    </label><br><br>-->
+
+<!--    <label>거래 자산 (asset):-->
+<!--        <input type="text" name="asset" placeholder="예: BTC" required>-->
+<!--    </label><br><br>-->
+
+<!--    <label>수량 (amount):-->
+<!--        <input type="number" step="1" name="amount" required>-->
+<!--    </label><br><br>-->
+
+<!--    <label>거래 가격 (strikePrice):-->
+<!--        <input type="number" step="1" name="strikePrice" required>-->
+<!--    </label><br><br>-->
+
+<!--    <label>만기일 (expiration):-->
+<!--        <input type="date" name="expiration" required>-->
+<!--    </label><br><br>-->
+
+<!--    <button type="submit">계약 제출</button>-->
+<!--</form>-->
+
+<!--</body>-->
+<!--</html>-->
