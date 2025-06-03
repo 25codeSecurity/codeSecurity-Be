@@ -9,10 +9,12 @@ package code_security.coin_futures.service;
 import code_security.coin_futures.domain.FuturesContract;
 import code_security.coin_futures.repository.FuturesContractRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SettlementService {
@@ -52,7 +54,8 @@ public class SettlementService {
         contractRepository.save(longContract);
         contractRepository.save(shortContract);
 
-        System.out.println("✅ 정산 완료: Long PnL = " + pnl + ", Short PnL = " + (-pnl));
+        //System.out.println("✅ 정산 완료: Long PnL = " + pnl + ", Short PnL = " + (-pnl));
+        log.info("정산 완료 - Long PnL: {}, Short PnL: {}", pnl, -pnl);
     }
 }
 

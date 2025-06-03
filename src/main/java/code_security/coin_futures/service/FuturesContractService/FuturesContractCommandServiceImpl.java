@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FuturesContractCommandServiceImpl implements FuturesContractCommandService {
@@ -138,7 +140,8 @@ public class FuturesContractCommandServiceImpl implements FuturesContractCommand
         c2.setMatched(true);
         futuresContractRepository.saveAll(List.of(c1, c2));
 
-        System.out.println("✅ 계약 체결 성공 및 상태 저장 완료: ID " + c1.getId() + " ↔ " + c2.getId());
+        //System.out.println("✅ 계약 체결 성공 및 상태 저장 완료: ID " + c1.getId() + " ↔ " + c2.getId());
+        log.info("계약 체결 성공 - contract1: {}, contract2: {}", c1.getId(), c2.getId());
     }
 }
 

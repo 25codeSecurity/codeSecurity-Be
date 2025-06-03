@@ -6,12 +6,16 @@
 */
 package code_security.coin_futures.util;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PublicKey;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-public class CertificateUtil {
+/*public class CertificateUtil {
     public static PublicKey extractPublicKey(String certPem) throws Exception {
         String cleaned = certPem
                 .replace("-----BEGIN CERTIFICATE-----", "")
@@ -24,4 +28,15 @@ public class CertificateUtil {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         return keyFactory.generatePublic(keySpec);
     }
+}*/
+public class CertificateUtil {
+    public static PublicKey extractPublicKey(String certPem) throws Exception {
+        CertificateFactory factory = CertificateFactory.getInstance("X.509");
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(certPem.getBytes(StandardCharsets.UTF_8));
+        X509Certificate certificate = (X509Certificate) factory.generateCertificate(inputStream);
+
+        certificate.checkValidity();
+        return certificate.getPublicKey();
+    }
 }
+
