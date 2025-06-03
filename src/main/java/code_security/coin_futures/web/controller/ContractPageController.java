@@ -29,10 +29,16 @@ public class ContractPageController {
     private final FuturesContractCommandService futuresContractCommandService;
 
     // Step 1-2 통합: 계약 제출 & 전자봉투 생성
+//    @GetMapping("/contractForm")
+//    public String contractFormPage() {
+//        return "contractForm"; // templates/contractForm.html
+ //   }
+
     @GetMapping("/contract-form")
     public String contractFormPage() {
-        return "contractForm"; // templates/contractForm.html
+        return "contractForm"; // 템플릿 파일명은 그대로
     }
+
 
     @PostMapping("/submit")
     public String handleSubmit(@ModelAttribute FuturesContractRequestDTO.SubmitContractDTO request, Model model) {

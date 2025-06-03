@@ -3,20 +3,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>정산 요청</title>
+    <title>계약 정산</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #6c5ce7;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #5649d2;
+        }
+    </style>
 </head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <div class="text-center mb-4">
+                    <i class="fas fa-calculator fa-3x text-primary mb-2"></i>
+                    <h2 class="fw-bold">계약 정산</h2>
+                    <p class="text-muted">두 계약의 정산을 위한 가격을 입력하세요.</p>
+                </div>
 
-<body>
-<h1>💰 계약 정산</h1>
+                <form th:action="@{/contracts/settle}" method="post">
+                    <div class="mb-3">
+                        <label for="contractId1" class="form-label">계약 ID 1</label>
+                        <input type="number" class="form-control" id="contractId1" name="contractId1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contractId2" class="form-label">계약 ID 2</label>
+                        <input type="number" class="form-control" id="contractId2" name="contractId2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="currentPrice" class="form-label">정산 기준 가격</label>
+                        <input type="number" class="form-control" id="currentPrice" name="currentPrice" step="0.01" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">정산 실행</button>
+                    </div>
+                </form>
 
-<form th:action="@{/contracts/settle}" method="post">
-    <label>계약 ID 1: <input type="number" name="contractId1" required></label><br />
-    <label>계약 ID 2: <input type="number" name="contractId2" required></label><br />
-    <label>정산 기준 가격 (예: 55000): <input type="number" step="0.01" name="currentPrice" required></label><br />
-    <button type="submit">정산 실행</button>
-</form>
+                <div class="mt-4 text-center">
+                    <p th:if="${success}" class="text-success fw-bold">✅ 정산 완료되었습니다!</p>
+                    <p th:if="${error}" class="text-danger fw-bold">❌ 정산 실패: <span th:text="${error}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p th:if="${success}" style="color:green;">✅ 정산 완료되었습니다!</p>
-<p th:if="${error}" style="color:red;">❌ 정산 실패: <span th:text="${error}"></span></p>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
