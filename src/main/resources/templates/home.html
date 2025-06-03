@@ -58,7 +58,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-5">
     <div class="container">
         <a class="navbar-brand" href="/contracts/home">
-            <i class="fas fa-coins me-2"></i>Coin Futures
+            <i class="fas fa-coins me-2"></i>Web Code Security
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -79,11 +79,11 @@
 <!-- Main Content -->
 <div class="container mb-5">
     <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold mb-3">Welcome to Coin Futures</h1>
-        <p class="lead text-muted">Manage your cryptocurrency futures contracts with ease</p>
+        <h1 class="display-4 fw-bold mb-3">코인 선물 거래 시스템</h1>
+        <p class="lead text-muted">당신의 선물 거래 경험을 쉽고 빠르게 관리하세요</p>
     </div>
 
-    <div class="row g-4">
+     <div class="row g-4">
         <!-- Contract Form -->
         <div class="col-md-4">
             <div class="card h-100">
@@ -91,8 +91,8 @@
                     <div class="card-icon">
                         <i class="fas fa-file-signature"></i>
                     </div>
-                    <h3 class="card-title">New Contract</h3>
-                    <p class="card-text">Submit a new futures contract for trading.</p>
+                    <h3 class="card-title">계약서 작성</h3>
+                    <p class="card-text">새로운 선물 거래 계약을 작성합니다.</p>
                     <a href="/contracts/contract-form" class="btn btn-primary">Go to Form</a>
                 </div>
             </div>
@@ -105,8 +105,8 @@
                     <div class="card-icon">
                         <i class="fas fa-handshake"></i>
                     </div>
-                    <h3 class="card-title">Match Contracts</h3>
-                    <p class="card-text">Match long and short position contracts.</p>
+                    <h3 class="card-title">계약 체결</h3>
+                    <p class="card-text">매도자와 매수자의 계약을 체결합니다.</p>
                     <a href="/contracts/match-form" class="btn btn-primary">Match Now</a>
                 </div>
             </div>
@@ -119,8 +119,8 @@
                     <div class="card-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
-                    <h3 class="card-title">Settlement</h3>
-                    <p class="card-text">Settle matched contracts based on current price.</p>
+                    <h3 class="card-title">계약 정산</h3>
+                    <p class="card-text">체결된 계약을 정산합니다.</p>
                     <a href="/contracts/settle-form" class="btn btn-primary">Settle</a>
                 </div>
             </div>
@@ -133,8 +133,8 @@
                     <div class="card-icon">
                         <i class="fas fa-search"></i>
                     </div>
-                    <h3 class="card-title">View Details</h3>
-                    <p class="card-text">Check details of any contract by ID.</p>
+                    <h3 class="card-title">계약서 상세 보기</h3>
+                    <p class="card-text">원하는 계약서의 ID를 입력하세요.</p>
                     <form th:action="@{/contracts/detail/__${id}__}" method="get" class="d-flex">
                         <input type="number" name="id" class="form-control me-2"
                                placeholder="Enter Contract ID" required
@@ -152,9 +152,9 @@
                     <div class="card-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
-                    <h3 class="card-title">Check Your Contract</h3>
-                    <p class="card-text">View successful operation messages.</p>
-                    <a href="/contracts/success" class="btn btn-primary">See Success</a>
+                    <h3 class="card-title">계좌 확인</h3>
+                    <p class="card-text">당신의 계좌 내역을 확인하세요.</p>
+                    <a href="/contracts/success" class="btn btn-primary">See Account</a>
                 </div>
             </div>
         </div>

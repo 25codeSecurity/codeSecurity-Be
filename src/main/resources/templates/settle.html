@@ -1,22 +1,131 @@
-<!--Step 4. 정산 요청 화면-->
+<!-- Step 4. 정산 요청 화면 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>정산 요청</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f6fa;
+            color: #2d3436;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+            color: #6c5ce7;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #a29bfe;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #6c5ce7;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #a29bfe;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
 <h1>💰 계약 정산</h1>
 
 <form th:action="@{/contracts/settle}" method="post">
-    <label>계약 ID 1: <input type="number" name="contractId1" required></label><br />
-    <label>계약 ID 2: <input type="number" name="contractId2" required></label><br />
-    <label>정산 기준 가격 (예: 55000): <input type="number" step="0.01" name="currentPrice" required></label><br />
+    <label>
+        계약 ID 1:
+        <input type="number" name="contractId1" required>
+    </label>
+
+    <label>
+        계약 ID 2:
+        <input type="number" name="contractId2" required>
+    </label>
+
+    <label>
+        정산 기준 가격 (예: 55000):
+        <input type="number" step="0.01" name="currentPrice" required>
+    </label>
+
     <button type="submit">정산 실행</button>
 </form>
 
-<p th:if="${success}" style="color:green;">✅ 정산 완료되었습니다!</p>
-<p th:if="${error}" style="color:red;">❌ 정산 실패: <span th:text="${error}"></span></p>
+<!-- 결과 메시지 -->
+<p class="message success" th:if="${success}">✅ 정산 완료되었습니다!</p>
+<p class="message error" th:if="${error}">❌ 정산 실패: <span th:text="${error}"></span></p>
+
 </body>
 </html>
+
+<!--Step 4. 정산 요청 화면-->
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>정산 요청</title>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<h1>💰 계약 정산</h1>-->
+
+<!--<form th:action="@{/contracts/settle}" method="post">-->
+<!--    <label>계약 ID 1: <input type="number" name="contractId1" required></label><br />-->
+<!--    <label>계약 ID 2: <input type="number" name="contractId2" required></label><br />-->
+<!--    <label>정산 기준 가격 (예: 55000): <input type="number" step="0.01" name="currentPrice" required></label><br />-->
+<!--    <button type="submit">정산 실행</button>-->
+<!--</form>-->
+
+<!--<p th:if="${success}" style="color:green;">✅ 정산 완료되었습니다!</p>-->
+<!--<p th:if="${error}" style="color:red;">❌ 정산 실패: <span th:text="${error}"></span></p>-->
+<!--</body>-->
+<!--</html>-->
